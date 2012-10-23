@@ -1,0 +1,16 @@
+{
+  "name": "application-name",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "coffee app"
+  },
+  "dependencies": {
+    "express": "3.0.0rc3",
+    "jade": "*",
+    "socket.io": "~0.9.11",
+    "node-dev": "~0.2.8",
+    "md5": "~1.0.0",
+    "crypto": "0.0.3"
+  }
+}

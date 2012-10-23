@@ -1,0 +1,295 @@
+<!doctype html>
+<html>
+  <head>
+    <link rel="stylesheet" href="/vendor/slickgrid/slick.grid.css" type="text/css"/>
+    <link rel="stylesheet" href="/vendor/bootstrap/bootstrap.css" type="text/css"/>
+    <link rel="stylesheet" href="/css/lib/smoothness/jquery-ui-1.8.16.custom.css" type="text/css"/>
+    <link rel="stylesheet" href="/css/lib/chosen.css" type="text/css"/>
+    <link rel="stylesheet" href="/vendor/slickgrid/plugins/slick.headermenu.css" type="text/css"/>
+    <link rel="stylesheet" href="/css/main.css" type="text/css"/>
+  </head>
+  
+  <body data-spy="scroll" data-target=".bs-docs-sidebar">
+    <!-- header -->
+    <div class="navbar navbar-invers navber-fixed-top">
+      <div class="nabvar-inner">
+        <div class="container">
+          <a class="brand">LogConsole</a>
+          <div class="nav-collapse collapse">
+            <ul class="nav">
+              <li>
+                <a class="btn btn-mini" style="padding: 5px 10px;" href="#addSheet" data-toggle="modal">Add Sheet</a>
+              </li>
+              <li>
+                <a class="btn btn-mini sendbeacon" style="padding: 5px 10px;">Send Beacon</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /header -->
+    <div class="alerts"></div>
+
+    <div class="container">
+      <ul id="sheets-nav" class="span12 nav nav-tabs">
+      </ul>
+      <div id="sheets" class="row">
+      </div>
+    </div>
+
+    <!------------------------------------------------------------
+       -- modals
+       ------------------------------------------------------------>
+                                                                   
+    <!-- addSheet -->
+    <div id="addSheet" class="hide modal fade">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h3>シートの追加</h3>        
+      </div>
+      <div class="modal-body">
+        <form class="form-horizontal">
+          <div class="control-group">
+            <label class="control-label" for="filename">File</label>
+            <div class="controls">
+              <input type="file" id="filename" placeholder="ファイル">
+            </div>
+          </div>
+          <div class="control-group">
+            <label class="control-label" for="tagname">Tag Name</label>
+            <div class="controls">
+              <input type="text" id="tagname" placeholder="タグ名">
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <a href="#" class="cancle btn" data-dismiss="modal">Close</a>
+        <a href="#" class="add btn btn-primary">Add</a>
+      </div>
+    </div>
+    <!-- /addSheet -->
+
+    <!-- addfield -->
+    <div id="addField" class="hide modal fade">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h3>Field</h3>        
+      </div>
+      <div class="modal-body">
+        <form class="form-horizontal">
+          <legend>Select Values</legend>
+          <fieldset>
+            <div class="control-group">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Field Name</th>
+                    <th>Operation</th>
+                    <th>inRowOperation</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                </tbody>
+              </table>
+            </div>
+            <a class="addValue btn btn-mini">add more</a>
+          </fieldset>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <a href="#" class="cancle btn" data-dismiss="modal">Close</a>
+        <a href="#" class="exec btn btn-primary">Do</a>
+      </div>
+    </div>
+    <!-- /addfield -->
+
+    <!-- filter -->
+    <div id="setFilter" class="hide modal fade">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h3>Filter</h3>        
+      </div>
+      <div class="modal-body">
+        <form class="form-horizontal">
+        </form>
+      </div>
+      <div class="modal-footer">
+        <a href="#" class="cancle btn" data-dismiss="modal">Close</a>
+        <a href="#" class="exec btn btn-primary">Do</a>
+      </div>
+    </div>
+    <!-- /filter -->
+
+    <!-- group -->
+    <div id="setGroup" class="hide modal fade">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h3>Grouping</h3>        
+      </div>
+      <div class="modal-body" style="height: 400px;">
+        <form class="form">
+          <fieldset>
+            <div class="control-group">
+              <label class="control-label" for="groupby">Grouped By</label>
+              <div class="controls">
+                <select id="groupby" name="groupby" multiple="multiple"></select>
+              </div>
+            </div>
+          </fieldset>
+          <legend>Select Values</legend>
+          <fieldset>
+            <div class="control-group">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Field Name</th>
+                    <th>Operation</th>
+                    <th>inRowOperation</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                </tbody>
+              </table>
+            </div>
+            <a class="addValue btn btn-mini">add more</a>
+          </fieldset>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <a href="#" class="cancle btn" data-dismiss="modal">Close</a>
+        <a href="#" class="exec btn btn-primary">Do</a>
+      </div>
+    </div>
+    <!-- /group -->
+
+    <!-- chart -->
+    <div id="createChart" class="hide modal fade">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h3>Chart</h3>        
+      </div>
+      <div class="modal-body">
+        <form class="form-horizontal">
+          <fieldset>
+            <div class="control-group">
+              <label class="control-label" for="charttype">Chart Type</label>
+              <div class="controls">
+                <select id="charttype" name="charttype">
+                  <option>選択して下さい</option>
+                </select>
+              </div>
+            </div>
+          </fieldset>
+          <div id="chartsettings"></div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <a href="#" class="cancle btn" data-dismiss="modal">Close</a>
+        <a href="#" class="exec btn btn-primary">Do</a>
+      </div>
+    </div>
+    <!-- /chart -->
+
+    <!-- transform -->
+    <div id="transformTable" class="hide modal fade">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h3>Transform</h3>        
+      </div>
+      <div class="modal-body" style="height: 300px;">
+        <form class="form-horizontal">
+          <fieldset>
+            <div class="control-group">
+              <label class="control-label" for="crossby">Cross by</label>
+              <div class="controls">
+                <select id="crossby" name="crossby" multiple="multiple"></select>
+              </div>
+            </div>
+          </fieldset>
+          <fieldset>
+            <div class="control-group">
+              <label class="control-label" for="crossvalue">Value of</label>
+              <div class="controls">
+                <select id="crossvalue" name="crossvalue"></select>
+              </div>
+            </div>
+          </fieldset>
+          <fieldset>
+            <div class="control-group">
+              <label class="control-label" for="crosscellfunc">Cell Function</label>
+              <div class="controls">
+                <select id="crosscellfunc" name="crosscellfunc"></select>
+              </div>
+            </div>
+          </fieldset>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <a href="#" class="cancle btn" data-dismiss="modal">Close</a>
+        <a href="#" class="exec btn btn-primary">Do</a>
+      </div>
+    </div>
+    <!-- /transform -->
+
+    <!-- graph -->
+    <div id="graph" class="hide modal fade">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h3>Graph</h3>        
+      </div>
+      <div class="modal-body">
+      </div>
+      <div class="modal-footer">
+        <a href="#" class="cancle btn" data-dismiss="modal">Close</a>
+        <a href="#" class="exec btn btn-primary">Do</a>
+      </div>
+    </div>
+    <!-- /graph -->
+    <!------------------------------------------------------------
+       -- /modals
+       ------------------------------------------------------------>
+
+    <!-- templates -->
+    <script id="sheet-template" type="text/template">
+      <div class="sheet tab-pane">
+        <div class="sheet-header">
+          <h2 class="title" />
+          <ul class="pull-right">
+            <li><a href="#addField" data-role="addfield" data-toggle="modal" class="btn btn-mini">Add Field</a></li>
+            <li><a href="#setFilter" data-role="filter" data-toggle="modal" class="btn btn-mini">Filter</a></li>
+            <li><a href="#setGroup" data-role="group" data-toggle="modal" class="btn btn-mini">Group</a></li>
+            <li><a href="#createChart" data-role="chart" data-toggle="modal" class="btn btn-mini">Chart</a></li>
+            <li><a href="#transformTable" data-role="transform" data-toggle="modal" class="btn btn-mini">Transform</a></li>
+          </ul>
+        </div>
+        <div class="sheet-body" style="width: 100%; height: 300px;">
+        </div>
+      </div>
+    </script>
+
+    <!-- /templates -->
+    <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+    
+    <script type="text/javascript" src="/js/lib/d3.v2.js"></script>
+    <script type="text/javascript" src="/js/lib/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="/js/lib/jquery-ui-1.8.16.custom.min.js"></script>
+    <script type="text/javascript" src="/js/lib/jquery.event.drag-2.0.min.js"></script>
+    <script type="text/javascript" src="/js/lib/jquery.jsonp-1.1.0.min.js"></script>
+    <script type="text/javascript" src="/js/lib/chosen.jquery.min.js"></script>
+    
+    <script type="text/javascript" src="/vendor/bootstrap/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/vendor/slickgrid/slick.core.js"></script>
+    <script type="text/javascript" src="/vendor/slickgrid/slick.remotemodel.js"></script>
+    <script type="text/javascript" src="/vendor/slickgrid/slick.grid.js"></script>
+    <script type="text/javascript" src="/vendor/slickgrid/slick.dataview.js"></script>
+    <script type="text/javascript" src="/vendor/slickgrid/slick.groupitemmetadataprovider.js"></script>
+    <script type="text/javascript" src="/vendor/slickgrid/plugins/slick.rowselectionmodel.js"></script>
+    <script type="text/javascript" src="/vendor/slickgrid/plugins/slick.headermenu.js"></script>
+    <script type="text/javascript" src="/js/groupingAndNewGrid.js"></script>
+    <script type="text/javascript" src="/js/consoleViewer.js"></script>
+  </body>
+</html>
